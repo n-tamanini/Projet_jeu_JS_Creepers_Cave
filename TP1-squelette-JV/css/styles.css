@@ -1,0 +1,17 @@
+@font-face{
+    font-family:"Blue";
+    src: url("../assets/fonts/Blue.ttf")
+}
+
+h1 {
+    font-family:"Blue";
+    color:red;
+    border:2px solid blue;
+    background-color:lightgreen;
+}
+
+#myCanvas{
+    border:1px solid black;
+    background-color:lightgrey;
+}
+
