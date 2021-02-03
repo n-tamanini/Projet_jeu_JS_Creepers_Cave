@@ -1,0 +1,52 @@
+function traiteCollisionsJoueurAvecBords() {
+
+    // Truc à savoir pour ne pas que l'objet donne 
+    // l'impression d'aller plus loin que le bord de l'écran, on le remet au point de contact
+
+    if (monstre.x > canvas.width - monstre.radius) {
+        // Collision à droite"
+        monstre.x = canvas.width - monstre.radius;
+        monstre.vitesseX = -monstre.vitesseX;
+    } else if (monstre.x - monstre.radius < 0) {
+        // Collision à gauche"
+        monstre.x = monstre.radius;
+        monstre.vitesseX = -monstre.vitesseX;
+    }
+    if (monstre.y - monstre.radius < 0) {
+        // Collision en haut"
+        monstre.y = monstre.radius;
+        monstre.vitesseY = -monstre.vitesseY;
+    } else if (monstre.y + monstre.radius > canvas.height) {
+        // Collision en bas"
+        monstre.y = canvas.height - monstre.radius;
+        monstre.vitesseY = -monstre.vitesseY;
+    }
+
+}
+
+function traiteCollisionsBalleAvecBords(b) {
+
+    // Truc à savoir pour ne pas que l'objet donne 
+    // l'impression d'aller plus loin que le bord de l'écran, on le remet au point de contact
+
+    if (b.x > canvas.width - b.rayon) {
+        // Collision à droite"
+        b.x = canvas.width - b.rayon;
+        b.vitesseX = -b.vitesseX;
+    } else if (b.x - b.rayon < 0) {
+        // Collision à gauche"
+        b.x = b.rayon;
+        b.vitesseX = -b.vitesseX;
+    }
+    if (b.y - b.rayon < 0) {
+        // Collision en haut"
+        b.y = b.rayon;
+        b.vitesseY = -b.vitesseY;
+    } else if (b.y + b.rayon > canvas.height) {
+        // Collision en bas"
+        b.y = canvas.height - b.rayon;
+        b.vitesseY = -b.vitesseY;
+    }
+
+}
+
