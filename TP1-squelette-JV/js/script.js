@@ -6,6 +6,13 @@ let gradient_green;
 let gradient_red;
 let colors = [];
 let currentColor = 0;
+let niveauCourant = 1;
+let nbVies = 10;
+let score = 0;
+
+let etatJeu = "MenuPrincipal";
+//let etatJeu = "EcranChangementNiveau";
+//let etatJeu = "GameOver";
 
 // Ici, on va stocker les objets graphiques du jeu, ennemis, etc.
 let tableauDesBalles = [];
@@ -34,36 +41,51 @@ function main() {
     // permettre de dessiner ou de changer les propriétés du canvas
     ctx = canvas.getContext("2d");
 
-    gradient_green = ctx.createLinearGradient(-monstre.radius, 0, monstre.radius, monstre.radius);
-    gradient_green.addColorStop(0, "darkgreen");
-    gradient_green.addColorStop(0.5, "lightgreen");
-    gradient_green.addColorStop(1, "white");
+    gradient_yellow = ctx.createLinearGradient(-monstre.radius, 0, monstre.radius, monstre.radius);
+    gradient_yellow.addColorStop(0, "orange");
+    gradient_yellow.addColorStop(0.5, "yellow");
+    gradient_yellow.addColorStop(1, "white");
 
     gradient_red = ctx.createLinearGradient(-monstre.radius, 0, monstre.radius, monstre.radius);
     gradient_red.addColorStop(0, "darkred");
     gradient_red.addColorStop(0.5, "red");
     gradient_red.addColorStop(1, "white");
 
-    colors = [gradient_green, gradient_red];
+    colors = [gradient_yellow, gradient_red];
 
     console.log(monstre.donneTonNom());
 
-    creerDesBalles(10);
+    creerDesBalles(niveauCourant);
 
     requestAnimationFrame(animationLoop);
 
-    setInterval(changeColor, 1000);
+    //setInterval(changeColor, 1000);
 
 }
 
-function creerDesBalles(nb) {
-    let tabCouleurs = ["blue", "black", "yellow", "orange", "purple"];
-    for (let i = 0; i < nb; i++) {
+function creerDesBalles(niveauCourant) {
+    console.log(niveauCourant);
+    tableauDesBalles = [];
+
+    // Balles ennemies
+    for (let i = 0; i < niveauCourant / 2; i++) {
         let x = Math.random() * canvas.width;
         let y = Math.random() * canvas.height;
-        let r = Math.random() * 30;
-        let indexCouleur = Math.floor(Math.random() * tabCouleurs.length);
-        let couleur = tabCouleurs[indexCouleur];
+        let r = (Math.random() + 0.5) * 20;
+        let couleur = "red";
+        let vx = -5 + Math.random() * 10;
+        let vy = -5 + Math.random() * 10;
+
+        let b = new Balle(x, y, r, couleur, vx, vy);
+        tableauDesBalles.push(b);
+    }
+
+    // Balles amies
+    for (let i = 0; i < niveauCourant * 2; i++) {
+        let x = Math.random() * canvas.width;
+        let y = Math.random() * canvas.height;
+        let r = (Math.random() + 0.5) * 20;
+        let couleur = "green";
         let vx = -5 + Math.random() * 10;
         let vy = -5 + Math.random() * 10;
 
@@ -77,10 +99,54 @@ function changeColor() {
     currentColor += 1;
 }
 
+function afficheInfoJeu() {
+    ctx.save();
+    ctx.fillStyle = "Black";
+    ctx.font = "30pt Blue";
+    ctx.fillText("Niveau : " + niveauCourant, 1000, 40);
+    ctx.fillText("Score : " + score, 480, 40);
+    ctx.fillText("Vies : " + nbVies, 10, 40);
+    ctx.restore();
+}
+
 // Animation à 60 images/s
 function animationLoop() {
     // On efface le canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    switch (etatJeu) {
+        case "MenuPrincipal":
+            canvas.style.cursor = "pointer";
+            afficheMenuPrincipal();
+            break;
+        case "JeuEnCours":
+            canvas.style.cursor = "none";
+            updateJeu();
+            break;
+        case "EcranChangementNiveau":
+            canvas.style.cursor = "pointer";
+            afficheEcranChangementNiveau();
+            break;
+        case "GameOver":
+            canvas.style.cursor = "pointer";
+            afficheEcranGameOver();
+    }
+    // On demande au navigateur de rappeler la fonction animationloop dans 1/60 seconde
+    requestAnimationFrame(animationLoop);
+}
+
+function afficheMenuPrincipal() {
+    ctx.save();
+    ctx.translate(600, 400);
+    ctx.fillStyle = "Black";
+    ctx.font = "50pt Blue";
+    ctx.fillText("MENU PRINCIPAL", -300, -200);
+    ctx.font = "30pt Blue";
+    ctx.fillText("Cliquez pour démarrer", -240, 50);
+    ctx.restore();
+}
+
+function updateJeu() {
 
     // On dessine les objects
     monstre.draw(ctx);
@@ -91,16 +157,75 @@ function animationLoop() {
     updateBalles();
 
     traiteCollisionsJoueurAvecBords();
+    afficheInfoJeu();
 
     // On demande au navigateur de rappeler la fonction animationloop dans 1/60 seconde
-    requestAnimationFrame(animationLoop);
+    //requestAnimationFrame(animationLoop);
+
+    if (niveauFini()) {
+        etatJeu = "EcranChangementNiveau";
+    }
+
+    if (nbVies == 0) {
+        etatJeu = "GameOver";
+    }
+}
+
+function afficheEcranChangementNiveau() {
+    ctx.save();
+    ctx.translate(600, 400);
+    ctx.fillStyle = "Black";
+    ctx.font = "50pt Blue";
+    ctx.fillText("Niveau " + niveauCourant + " terminé !", -300, -200);
+    ctx.font = "25pt Blue";
+    ctx.fillText("Score : " + score, -120, -50);
+    ctx.fillText("Nombre de vies : " + nbVies, -180, 0);
+    ctx.font = "30pt Blue";
+    ctx.fillText("Cliquez pour passer au niveau suivant", -380, 200);
+    ctx.restore();
+}
+
+function afficheEcranGameOver() {
+    ctx.save();
+    ctx.translate(600, 400);
+    ctx.fillStyle = "Black";
+    ctx.font = "50pt Blue";
+    ctx.fillText("Partie perdue :( ", -250, -200);
+    ctx.font = "25pt Blue";
+    ctx.fillText("Score : " + score, -120, -50);
+    ctx.fillText("Niveau atteint : " + niveauCourant, -160, 0);
+    ctx.font = "30pt Blue";
+    ctx.fillText("Cliquez pour revenir au menu principal", -380, 200);
+    ctx.restore();
+
+}
+
+function niveauFini() {
+    let countGreenBalls = 0;
+    tableauDesBalles.forEach((b) => {
+        if (b.couleur == "green") {
+            countGreenBalls++;
+        }
+    });
+    if (countGreenBalls == 0) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 function updateBalles() {
     tableauDesBalles.forEach((b) => {
         b.draw(ctx);
         traiteCollisionsBalleAvecBords(b);
+        traiteCollisionJoueurAvecBalles(b);
         b.move();
-    })
+    });
+
 }
 
+function passeNiveauSuivant() {
+    niveauCourant += 1;
+    creerDesBalles(niveauCourant);
+    etatJeu = "JeuEnCours";
+}

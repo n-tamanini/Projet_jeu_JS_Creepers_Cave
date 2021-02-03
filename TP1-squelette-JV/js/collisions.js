@@ -50,3 +50,22 @@ function traiteCollisionsBalleAvecBords(b) {
 
 }
 
+function traiteCollisionJoueurAvecBalles(b) {
+    if (circleCollide(monstre.x, monstre.y, monstre.radius, b.x, b.y, b.rayon)) {
+        let index = tableauDesBalles.indexOf(b);
+        tableauDesBalles.splice(index, 1);
+        if (b.couleur == "green") {
+            score += 10;
+        } else {
+            nbVies--;
+        }
+    }
+}
+
+// Fonctions génériques de collision cercle-cercle, rectangle-rectangle et cercle-rectangle
+// Aussi polygone-polygone convexes (algo SAT)
+function circleCollide(x1, y1, r1, x2, y2, r2) {
+    var dx = x1 - x2;
+    var dy = y1 - y2;
+    return ((dx * dx + dy * dy) < (r1 + r2) * (r1 + r2));
+}

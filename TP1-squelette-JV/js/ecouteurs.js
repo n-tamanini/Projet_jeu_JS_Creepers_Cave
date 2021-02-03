@@ -1,5 +1,21 @@
 function traiteMouseDown(event) {
-    //console.log("souris cliquée en x = " + mousePos.x + " et en y = " + mousePos.y);
+
+    // Ex d'utilisation de l'API du DOM pour modifier du contenu html
+    /* let spanNiveau = document.querySelector("#niveau");
+     spanNiveau.innerHTML = "<i>" + niveauCourant++ + "</i>";*/
+
+    switch (etatJeu) {
+        case "MenuPrincipal":
+            etatJeu = "JeuEnCours";
+            console.log(etatJeu);
+            break;
+        case "EcranChangementNiveau":
+            passeNiveauSuivant();
+            break;
+        case "GameOver":
+            etatJeu = "MenuPrincipal";
+            break;
+    }
 }
 
 function traiteMouseUp(event) {
@@ -43,7 +59,7 @@ function traiteKeyUp(event) {
             break;
         case "ArrowUp":
         case "ArrowDown":
-            monstre.vitesseY = -0;
+            monstre.vitesseY = 0;
             break;
     }
 }
