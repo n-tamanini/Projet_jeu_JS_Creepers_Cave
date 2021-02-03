@@ -5,8 +5,12 @@ let monstre = {
     h: 40,
     radius: 40,
     angle: 0,
-    vitesseX: 1,
-    vitesseY: 3,
+    vitesseX: 0,
+    vitesseY: 0,
+    setPos: function (x, y) {
+        this.x = x;
+        this.y = y;
+    },
     donneTonNom: function () {
         return "Je m'appelle Creepy le creeper, je suis en x = " + this.x + " et en y = " + this.y
     },

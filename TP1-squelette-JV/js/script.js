@@ -17,6 +17,19 @@ function main() {
     // On récupère grace à la selector API un pointeur vers le canvas
     canvas = document.querySelector("#myCanvas");
 
+    // On ajoute des écouteurs sur le canvas
+    canvas.onmousedown = traiteMouseDown;
+    canvas.onmouseup = traiteMouseUp;
+    canvas.onmousemove = traiteMouseMove;
+
+    // On peut détecter les touche que si il y a le focus sur le canvas
+    // Donc on détecte sur le document entier (plus simple)
+    document.onkeydown = traiteKeyDown;
+    document.onkeyup = traiteKeyUp;
+
+    //canvas.addEventListener("mousedown", traiteMouseDown);
+
+
     // pour dessiner, on a besoin de son "contexte graphique", un pbjet qui va 
     // permettre de dessiner ou de changer les propriétés du canvas
     ctx = canvas.getContext("2d");
