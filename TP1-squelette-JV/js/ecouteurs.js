@@ -7,7 +7,6 @@ function traiteMouseDown(event) {
     switch (etatJeu) {
         case "MenuPrincipal":
             etatJeu = "JeuEnCours";
-            console.log(etatJeu);
             break;
         case "EcranChangementNiveau":
             passeNiveauSuivant();

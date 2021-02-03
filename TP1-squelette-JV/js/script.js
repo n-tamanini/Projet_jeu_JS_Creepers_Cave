@@ -64,7 +64,6 @@ function main() {
 }
 
 function creerDesBalles(niveauCourant) {
-    console.log(niveauCourant);
     tableauDesBalles = [];
 
     // Balles ennemies
