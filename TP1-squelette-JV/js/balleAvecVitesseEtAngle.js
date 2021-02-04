@@ -3,7 +3,7 @@ class BalleAvecVitesseEtAngle extends Balle {
     angle = Math.PI / 2;
 
     constructor(x, y, rayon, couleur, vitesse, angle) {
-        super(x, y, rayon, couleur);
+        super(x, y, rayon, couleur, "ennemi");
 
         this.vitesse = vitesse;
         this.angle = angle;
@@ -11,10 +11,11 @@ class BalleAvecVitesseEtAngle extends Balle {
     draw(ctx) {
         // On dessine la balle avec un vecteur direction
         super.draw(ctx);
-
+/*
         ctx.save();
 
         // On dessine un trait dans la direction de la balle
+        
         ctx.translate(this.x, this.y);
         ctx.rotate(this.angle);
 
@@ -25,7 +26,7 @@ class BalleAvecVitesseEtAngle extends Balle {
         ctx.lineWidth = 3;
         ctx.stroke();
 
-        ctx.restore();
+        ctx.restore();*/
     }
     move() {
         this.x += Math.cos(this.angle) * this.vitesse;

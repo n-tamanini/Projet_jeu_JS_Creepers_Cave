@@ -3,12 +3,14 @@ class Balle {
     y;
     rayon;
     couleur = "black";
+    role;
 
-    constructor(x, y, rayon, couleur) {
+    constructor(x, y, rayon, couleur, role) {
         this.x = x;
         this.y = y;
         this.rayon = rayon;
         this.couleur = couleur;
+        this.role = role;
     }
 
     draw(ctx) {

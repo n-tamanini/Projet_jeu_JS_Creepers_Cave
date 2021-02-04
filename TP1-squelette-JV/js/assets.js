@@ -1,7 +1,7 @@
 /* Les assets, on pourra plus tard ajouter des sons et des musiques */
 const assetsToLoadURLs = {
-    /*
-    croissant: { url: "assets/images/Croissant@2x.png" },
+    
+    glowstone: { url: "assets/images/glowstone.png" },/*
     croissantHighlighted: { url: "assets/images/Croissant-Highlighted@2x.png" },
     cupcake: { url: "assets/images/Cupcake@2x.png" },
     cupcakeHighlighted: { url: "assets/images/Cupcake-Highlighted@2x.png" },

@@ -2,8 +2,8 @@ class BalleAvecVitesseXY extends Balle {
     vitesseX;
     vitesseY;
 
-    constructor(x, y, rayon, couleur, vitesseX, vitesseY) {
-        super(x, y, rayon, couleur);
+    constructor(x, y, rayon, couleur, vitesseX, vitesseY,role) {
+        super(x, y, rayon, couleur,role);
 
         this.vitesseX = vitesseX;
         this.vitesseY = vitesseY;

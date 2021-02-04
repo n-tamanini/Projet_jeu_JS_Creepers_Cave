@@ -53,12 +53,12 @@ function traiteCollisionsBalleAvecBords(b) {
 
 function traiteCollisionJoueurAvecBalles(b) {
     if (circleCollide(monstre.x, monstre.y, monstre.radius, b.x, b.y, b.rayon)) {
-        if (b.couleur == "green") {
+        if (b.role == "ami") {
             assets.coin.play();
             let index = tableauDesBalles.indexOf(b);
             tableauDesBalles.splice(index, 1);
             score += 10;
-        } else if (b.couleur == "red" && !isPlayerInvincible) {
+        } else if (b.role == "ennemi" && !isPlayerInvincible) {
             assets.scream.play();
             rendJoueurInvincibleTemporairement(dureeInvincibiliteTemporaireToucheParEnnemi);
             if (b instanceof BalleChercheuse) {

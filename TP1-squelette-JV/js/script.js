@@ -92,7 +92,7 @@ function creerDesBalles(niveauCourant) {
         let vx = -5 + Math.random() * 10;
         let vy = -5 + Math.random() * 10;
 
-        let b = new BalleAvecVitesseXY(x, y, r, couleur, vx, vy);
+        let b = new BalleAvecVitesseXY(x, y, r, couleur, vx, vy, "ennemi");
         tableauDesBalles.push(b);
     }
 
@@ -100,12 +100,11 @@ function creerDesBalles(niveauCourant) {
     for (let i = 0; i < niveauCourant * 2; i++) {
         let x = Math.random() * canvas.width;
         let y = Math.random() * canvas.height;
-        let r = (Math.random() + 0.5) * 20;
-        let couleur = "green";
+        let imgUrl = "assets/images/glowstone.png";
         let vx = -5 + Math.random() * 10;
         let vy = -5 + Math.random() * 10;
 
-        let b = new BalleAvecVitesseXY(x, y, r, couleur, vx, vy);
+        let b = new BalleImage(x, y, imgUrl, vx, vy, "ami");
         tableauDesBalles.push(b);
     }
 
@@ -224,13 +223,13 @@ function afficheEcranGameOver() {
 }
 
 function niveauFini() {
-    let countGreenBalls = 0;
+    let countAmi = 0;
     tableauDesBalles.forEach((b) => {
-        if (b.couleur == "green") {
-            countGreenBalls++;
+        if (b.role == "ami") {
+            countAmi++;
         }
     });
-    if (countGreenBalls == 0) {
+    if (countAmi == 0) {
         return true;
     } else {
         return false;
