@@ -25,6 +25,7 @@ function traiteCollisionsJoueurAvecBords() {
 }
 
 function traiteCollisionsBalleAvecBords(b) {
+    if (!b instanceof BalleAvecVitesseXY) return;
 
     // Truc à savoir pour ne pas que l'objet donne 
     // l'impression d'aller plus loin que le bord de l'écran, on le remet au point de contact
@@ -52,12 +53,20 @@ function traiteCollisionsBalleAvecBords(b) {
 
 function traiteCollisionJoueurAvecBalles(b) {
     if (circleCollide(monstre.x, monstre.y, monstre.radius, b.x, b.y, b.rayon)) {
-        let index = tableauDesBalles.indexOf(b);
-        tableauDesBalles.splice(index, 1);
         if (b.couleur == "green") {
+            let index = tableauDesBalles.indexOf(b);
+            tableauDesBalles.splice(index, 1);
             score += 10;
-        } else {
-            nbVies--;
+        } else if (b.couleur == "red" && !isPlayerInvincible) {
+            let index = tableauDesBalles.indexOf(b);
+            tableauDesBalles.splice(index, 1);
+            if (b instanceof BalleChercheuse) {
+                console.log("collision avec balle chercheuse !");
+                nbVies -= 3;
+            }
+            else {
+                nbVies--;
+            }
         }
     }
 }

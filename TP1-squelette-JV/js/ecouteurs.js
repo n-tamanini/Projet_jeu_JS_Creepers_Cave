@@ -6,6 +6,7 @@ function traiteMouseDown(event) {
 
     switch (etatJeu) {
         case "MenuPrincipal":
+            rendJoueurVulnerableDans2Sec();
             etatJeu = "JeuEnCours";
             break;
         case "EcranChangementNiveau":
@@ -13,6 +14,7 @@ function traiteMouseDown(event) {
             break;
         case "GameOver":
             etatJeu = "MenuPrincipal";
+            initialiserNouvellePartie();
             break;
     }
 }
@@ -29,6 +31,10 @@ function traiteMouseMove(event) {
     mousePosY = event.clientY - rect.top;
 
     monstre.setPos(mousePosX, mousePosY);
+
+    if (balleChercheuse !== undefined) {
+        balleChercheuse.setTarget(mousePosX, mousePosY);
+    }
 }
 
 function traiteKeyDown(event) {

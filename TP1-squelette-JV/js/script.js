@@ -6,9 +6,10 @@ let gradient_green;
 let gradient_red;
 let colors = [];
 let currentColor = 0;
-let niveauCourant = 1;
-let nbVies = 10;
-let score = 0;
+let niveauCourant;
+let nbVies;
+let score;
+let isPlayerInvincible = true;
 
 let etatJeu = "MenuPrincipal";
 //let etatJeu = "EcranChangementNiveau";
@@ -16,6 +17,8 @@ let etatJeu = "MenuPrincipal";
 
 // Ici, on va stocker les objets graphiques du jeu, ennemis, etc.
 let tableauDesBalles = [];
+
+let balleChercheuse;
 
 // Programme principal
 function main() {
@@ -55,6 +58,9 @@ function main() {
 
     console.log(monstre.donneTonNom());
 
+    initialiserNouvellePartie();
+    console.log("joueur invincible");
+
     creerDesBalles(niveauCourant);
 
     requestAnimationFrame(animationLoop);
@@ -62,6 +68,12 @@ function main() {
     //setInterval(changeColor, 1000);
 
 }
+
+function initialiserNouvellePartie(){
+    nbVies = 10;
+    score = 0;
+    niveauCourant = 1;
+} 
 
 function creerDesBalles(niveauCourant) {
     tableauDesBalles = [];
@@ -75,7 +87,7 @@ function creerDesBalles(niveauCourant) {
         let vx = -5 + Math.random() * 10;
         let vy = -5 + Math.random() * 10;
 
-        let b = new Balle(x, y, r, couleur, vx, vy);
+        let b = new BalleAvecVitesseXY(x, y, r, couleur, vx, vy);
         tableauDesBalles.push(b);
     }
 
@@ -88,9 +100,20 @@ function creerDesBalles(niveauCourant) {
         let vx = -5 + Math.random() * 10;
         let vy = -5 + Math.random() * 10;
 
-        let b = new Balle(x, y, r, couleur, vx, vy);
+        let b = new BalleAvecVitesseXY(x, y, r, couleur, vx, vy);
         tableauDesBalles.push(b);
     }
+
+    // Balle à tête chercheuse
+    balleChercheuse = new BalleChercheuse(
+        Math.random() * canvas.width,
+        Math.random() * canvas.height,
+        40,
+        "red",
+        1+(niveauCourant/4),
+    );
+    tableauDesBalles.push(balleChercheuse);
+
 }
 
 function changeColor() {
@@ -165,7 +188,7 @@ function updateJeu() {
         etatJeu = "EcranChangementNiveau";
     }
 
-    if (nbVies == 0) {
+    if (nbVies <= 0) {
         etatJeu = "GameOver";
     }
 }
@@ -223,7 +246,19 @@ function updateBalles() {
 
 }
 
+function rendJoueurVulnerable(){
+    isPlayerInvincible = false;
+    console.log("joueur vunlérable");
+}
+
+function rendJoueurVulnerableDans2Sec(){
+    setTimeout((rendJoueurVulnerable),2000);
+}
+
 function passeNiveauSuivant() {
+    isPlayerInvincible = true;
+    console.log("joueur invincible");
+    rendJoueurVulnerableDans2Sec();
     niveauCourant += 1;
     creerDesBalles(niveauCourant);
     etatJeu = "JeuEnCours";

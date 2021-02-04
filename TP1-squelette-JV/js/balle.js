@@ -3,15 +3,12 @@ class Balle {
     y;
     rayon;
     couleur = "black";
-    vitesseX = 0;
-    vitesseY = 0;
-    constructor(x, y, rayon, couleur, vitesseX, vitesseY) {
+
+    constructor(x, y, rayon, couleur) {
         this.x = x;
         this.y = y;
         this.rayon = rayon;
-        if (couleur) this.couleur = couleur;
-        if (vitesseX) this.vitesseX = vitesseX;
-        if (vitesseY) this.vitesseY = vitesseY;
+        this.couleur = couleur;
     }
 
     draw(ctx) {
@@ -32,7 +29,5 @@ class Balle {
         ctx.restore();
     }
     move() {
-        this.x += this.vitesseX;
-        this.y += this.vitesseY;
     }
 }
