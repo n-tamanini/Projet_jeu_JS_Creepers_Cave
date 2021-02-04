@@ -112,7 +112,7 @@ function creerDesBalles(niveauCourant) {
         let y = Math.random() * canvas.height;
         let rayon = 50;
         let imgUrl = "assets/images/enderman.png";
-        let v = 1 + (niveauCourant / 4);
+        let v = 1 + (niveauCourant / 8);
 
         let b = new BalleChercheuseImage(x, y, rayon, imgUrl, v);
         tableauDesBalles.push(b);
