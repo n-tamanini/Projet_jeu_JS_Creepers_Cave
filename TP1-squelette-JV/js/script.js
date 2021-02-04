@@ -9,7 +9,7 @@ let currentColor = 0;
 let niveauCourant;
 let nbVies;
 let score;
-let isPlayerInvincible = true;
+let isPlayerInvincible;
 
 let etatJeu = "MenuPrincipal";
 //let etatJeu = "EcranChangementNiveau";
@@ -59,7 +59,6 @@ function main() {
     console.log(monstre.donneTonNom());
 
     initialiserNouvellePartie();
-    console.log("joueur invincible");
 
     creerDesBalles(niveauCourant);
 
@@ -70,6 +69,7 @@ function main() {
 }
 
 function initialiserNouvellePartie(){
+    isPlayerInvincible = true;
     nbVies = 10;
     score = 0;
     niveauCourant = 1;
