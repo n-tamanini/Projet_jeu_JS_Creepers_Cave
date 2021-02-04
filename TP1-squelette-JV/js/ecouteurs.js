@@ -6,7 +6,7 @@ function traiteMouseDown(event) {
 
     switch (etatJeu) {
         case "MenuPrincipal":
-            rendJoueurInvincibleTemporairement();
+            rendJoueurInvincibleTemporairement(dureeInvincibiliteTemporaireDebut);
             etatJeu = "JeuEnCours";
             break;
         case "EcranChangementNiveau":

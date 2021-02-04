@@ -10,7 +10,8 @@ let niveauCourant;
 let nbVies;
 let score;
 let isPlayerInvincible;
-let dureeInvincibiliteTemporaire = 1500;
+let dureeInvincibiliteTemporaireDebut = 1500;
+let dureeInvincibiliteTemporaireToucheParEnnemi = 2000;
 
 let etatJeu = "MenuPrincipal";
 //let etatJeu = "EcranChangementNiveau";
@@ -247,12 +248,12 @@ function faireClignoterLeMonstre(){
               ctx.fillStyle = colors[0];
               currentColor = 1;
          }
-   } , 300);
+   } , 100);
 }
 
 
-function rendJoueurInvincibleTemporairement(){
-    setTimeout((rendJoueurVulnerable), dureeInvincibiliteTemporaire);  
+function rendJoueurInvincibleTemporairement(temps){
+    setTimeout((rendJoueurVulnerable), temps);  
     rendJoueurInvincible();  
 }
 
@@ -264,11 +265,10 @@ function rendJoueurInvincible(){
 
 function rendJoueurVulnerable() {
     isPlayerInvincible = false;
-    console.log("joueur vunlérable");
 }
 
 function passeNiveauSuivant() {
-    rendJoueurInvincibleTemporairement();
+    rendJoueurInvincibleTemporairement(dureeInvincibiliteTemporaireDebut);
     niveauCourant += 1;
     creerDesBalles(niveauCourant);
     etatJeu = "JeuEnCours";
