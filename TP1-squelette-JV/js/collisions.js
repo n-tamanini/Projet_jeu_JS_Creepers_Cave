@@ -54,13 +54,13 @@ function traiteCollisionsBalleAvecBords(b) {
 function traiteCollisionJoueurAvecBalles(b) {
     if (circleCollide(monstre.x, monstre.y, monstre.radius, b.x, b.y, b.rayon)) {
         if (b.couleur == "green") {
+            assets.coin.play();
             let index = tableauDesBalles.indexOf(b);
             tableauDesBalles.splice(index, 1);
             score += 10;
         } else if (b.couleur == "red" && !isPlayerInvincible) {
+            assets.scream.play();
             rendJoueurInvincibleTemporairement(dureeInvincibiliteTemporaireToucheParEnnemi);
-            let index = tableauDesBalles.indexOf(b);
-            tableauDesBalles.splice(index, 1);
             if (b instanceof BalleChercheuse) {
                 console.log("collision avec balle chercheuse !");
                 nbVies -= 3;

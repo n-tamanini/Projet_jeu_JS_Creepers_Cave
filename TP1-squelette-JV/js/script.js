@@ -2,6 +2,7 @@ window.onload = main;
 
 let canvas;
 let ctx;
+let assets;
 let gradient_green;
 let gradient_red;
 let colors = [];
@@ -26,47 +27,57 @@ let balleChercheuse;
 function main() {
     console.log("page chargée ! DOM ready ! Toutes les ressources de la page sont utilisables (vidéos, images, polices ...)");
 
-    // On récupère grace à la selector API un pointeur vers le canvas
-    canvas = document.querySelector("#myCanvas");
+    loadAssets(startGame);
 
-    // On ajoute des écouteurs sur le canvas
-    canvas.onmousedown = traiteMouseDown;
-    canvas.onmouseup = traiteMouseUp;
-    canvas.onmousemove = traiteMouseMove;
+}
 
-    // On peut détecter les touche que si il y a le focus sur le canvas
-    // Donc on détecte sur le document entier (plus simple)
-    document.onkeydown = traiteKeyDown;
-    document.onkeyup = traiteKeyUp;
+function startGame(assetsLoaded){
 
-    //canvas.addEventListener("mousedown", traiteMouseDown);
+    assets = assetsLoaded;
 
 
-    // pour dessiner, on a besoin de son "contexte graphique", un pbjet qui va 
-    // permettre de dessiner ou de changer les propriétés du canvas
-    ctx = canvas.getContext("2d");
+     // On récupère grace à la selector API un pointeur vers le canvas
+     canvas = document.querySelector("#myCanvas");
 
-    gradient_yellow = ctx.createLinearGradient(-monstre.radius, 0, monstre.radius, monstre.radius);
-    gradient_yellow.addColorStop(0, "orange");
-    gradient_yellow.addColorStop(0.5, "yellow");
-    gradient_yellow.addColorStop(1, "white");
-
-    colors = [gradient_yellow, "lightgrey"];
-
-    console.log(monstre.donneTonNom());
-
-    initialiserNouvellePartie();
-
-    creerDesBalles(niveauCourant);
-
-    requestAnimationFrame(animationLoop);
-
+     // On ajoute des écouteurs sur le canvas
+     canvas.onmousedown = traiteMouseDown;
+     canvas.onmouseup = traiteMouseUp;
+     canvas.onmousemove = traiteMouseMove;
+ 
+     // On peut détecter les touche que si il y a le focus sur le canvas
+     // Donc on détecte sur le document entier (plus simple)
+     document.onkeydown = traiteKeyDown;
+     document.onkeyup = traiteKeyUp;
+ 
+     //canvas.addEventListener("mousedown", traiteMouseDown);
+ 
+ 
+     // pour dessiner, on a besoin de son "contexte graphique", un pbjet qui va 
+     // permettre de dessiner ou de changer les propriétés du canvas
+     ctx = canvas.getContext("2d");
+ 
+     gradient_yellow = ctx.createLinearGradient(-monstre.radius, 0, monstre.radius, monstre.radius);
+     gradient_yellow.addColorStop(0, "orange");
+     gradient_yellow.addColorStop(0.5, "yellow");
+     gradient_yellow.addColorStop(1, "white");
+ 
+     colors = [gradient_yellow, "rgb(0,0,0,0)"];
+ 
+     console.log(monstre.donneTonNom());
+ 
+     initialiserNouvellePartie();
+ 
+     creerDesBalles(niveauCourant);
+ 
+     requestAnimationFrame(animationLoop);
 }
 
 function initialiserNouvellePartie() {
     nbVies = 10;
     score = 0;
     niveauCourant = 1;
+    assets.musique_game_over.stop();
+    assets.musique_menu_principal.play();
 }
 
 function creerDesBalles(niveauCourant) {
@@ -179,6 +190,8 @@ function updateJeu() {
 
     if (nbVies <= 0) {
         etatJeu = "GameOver";
+        assets.musique_jeu_en_cours.stop();
+        assets.musique_game_over.play();
     }
 }
 
