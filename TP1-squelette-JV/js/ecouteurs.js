@@ -33,9 +33,11 @@ function traiteMouseMove(event) {
 
     monstre.setPos(mousePosX, mousePosY);
 
-    if (balleChercheuseImage !== undefined) {
-        balleChercheuseImage.setTarget(mousePosX, mousePosY);
-    }
+    tableauDesBalles.forEach((b) => {
+        if (b instanceof BalleChercheuseImage) {
+            b.setTarget(mousePosX, mousePosY);
+        }
+    });
 }
 
 function traiteKeyDown(event) {

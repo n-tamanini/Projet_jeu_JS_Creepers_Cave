@@ -22,8 +22,6 @@ let etatJeu = "MenuPrincipal";
 // Ici, on va stocker les objets graphiques du jeu, ennemis, etc.
 let tableauDesBalles = [];
 
-let balleChercheuse;
-
 // Programme principal
 function main() {
     console.log("page chargée ! DOM ready ! Toutes les ressources de la page sont utilisables (vidéos, images, polices ...)");
@@ -68,8 +66,6 @@ function startGame(assetsLoaded) {
 
     initialiserNouvellePartie();
 
-    creerDesBalles(niveauCourant);
-
     requestAnimationFrame(animationLoop);
 }
 
@@ -77,6 +73,7 @@ function initialiserNouvellePartie() {
     nbVies = 10;
     score = 0;
     niveauCourant = 1;
+    creerDesBalles(niveauCourant)
     changeMusique(assets.musique_menu_principal);
 }
 
@@ -109,15 +106,17 @@ function creerDesBalles(niveauCourant) {
         tableauDesBalles.push(b);
     }
 
-    // Balle à tête chercheuse
-    balleChercheuseImage = new BalleChercheuseImage(
-        Math.random() * canvas.width,
-        Math.random() * canvas.height,
-        50,
-        "assets/images/enderman.png",
-        1 + (niveauCourant / 4),
-    );
-    tableauDesBalles.push(balleChercheuseImage);
+    // Balles à tête chercheuse
+    for (let i = 0; i < niveauCourant / 10; i++) {
+        let x = Math.random() * canvas.width;
+        let y = Math.random() * canvas.height;
+        let rayon = 50;
+        let imgUrl = "assets/images/enderman.png";
+        let v = 1 + (niveauCourant / 4);
+
+        let b = new BalleChercheuseImage(x, y, rayon, imgUrl, v);
+        tableauDesBalles.push(b);
+    }
 
 }
 
