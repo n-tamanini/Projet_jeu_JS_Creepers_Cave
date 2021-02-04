@@ -1,22 +1,9 @@
 /* Les assets, on pourra plus tard ajouter des sons et des musiques */
 const assetsToLoadURLs = {
     
-    glowstone: { url: "assets/images/glowstone.png" },/*
-    croissantHighlighted: { url: "assets/images/Croissant-Highlighted@2x.png" },
-    cupcake: { url: "assets/images/Cupcake@2x.png" },
-    cupcakeHighlighted: { url: "assets/images/Cupcake-Highlighted@2x.png" },
-    danish: { url: "assets/images/Danish@2x.png" },
-    danishHighlighted: { url: "assets/images/Danish-Highlighted@2x.png" },
-    donut: { url: "assets/images/Donut@2x.png" },
-    donutHighlighted: { url: "assets/images/Donut-highlighted@2x.png" },
-    macaroon: { url: "assets/images/Macaroon@2x.png" },
-    macaroonHighlighted: { url: "assets/images/Macaroon-Highlighted@2x.png" },
-    sugarCookie: { url: "assets/images/SugarCookie@2x.png" },
-    sugarCookieHighlighted: {
-        url: "assets/images/SugarCookie-Highlighted@2x.png",
-    },
-    tileEmpty: { url: "assets/images/TileEmpty.png" },
-    */
+    glowstone: { url: "assets/images/glowstone.png" },
+    squelette: { url: "assets/images/squelette.png" },
+    enderman: { url: "assets/images/enderman.png" },
 
     scream: {
         url:

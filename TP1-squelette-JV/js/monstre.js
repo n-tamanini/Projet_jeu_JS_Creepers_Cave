@@ -3,7 +3,7 @@ let monstre = {
     y: 100,
     l: 40,
     h: 40,
-    radius: 40,
+    radius: 45,
     angle: 0,
     vitesseX: 0,
     vitesseY: 0,

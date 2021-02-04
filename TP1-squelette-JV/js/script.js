@@ -87,12 +87,12 @@ function creerDesBalles(niveauCourant) {
     for (let i = 0; i < niveauCourant / 2; i++) {
         let x = Math.random() * canvas.width;
         let y = Math.random() * canvas.height;
-        let r = (Math.random() + 0.5) * 20;
-        let couleur = "red";
+        let r = (Math.random() + 1) * 20;
+        let imgUrl = "assets/images/squelette.png";
         let vx = -5 + Math.random() * 10;
         let vy = -5 + Math.random() * 10;
 
-        let b = new BalleAvecVitesseXY(x, y, r, couleur, vx, vy, "ennemi");
+        let b = new BalleImage(x, y, r, imgUrl, vx, vy, "ennemi");
         tableauDesBalles.push(b);
     }
 
@@ -100,23 +100,24 @@ function creerDesBalles(niveauCourant) {
     for (let i = 0; i < niveauCourant * 2; i++) {
         let x = Math.random() * canvas.width;
         let y = Math.random() * canvas.height;
+        let rayon = 30;
         let imgUrl = "assets/images/glowstone.png";
         let vx = -5 + Math.random() * 10;
         let vy = -5 + Math.random() * 10;
 
-        let b = new BalleImage(x, y, imgUrl, vx, vy, "ami");
+        let b = new BalleImage(x, y, rayon, imgUrl, vx, vy, "ami");
         tableauDesBalles.push(b);
     }
 
     // Balle à tête chercheuse
-    balleChercheuse = new BalleChercheuse(
+    balleChercheuseImage = new BalleChercheuseImage(
         Math.random() * canvas.width,
         Math.random() * canvas.height,
-        40,
-        "red",
+        50,
+        "assets/images/enderman.png",
         1 + (niveauCourant / 4),
     );
-    tableauDesBalles.push(balleChercheuse);
+    tableauDesBalles.push(balleChercheuseImage);
 
 }
 

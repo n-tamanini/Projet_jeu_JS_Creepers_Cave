@@ -33,8 +33,8 @@ function traiteMouseMove(event) {
 
     monstre.setPos(mousePosX, mousePosY);
 
-    if (balleChercheuse !== undefined) {
-        balleChercheuse.setTarget(mousePosX, mousePosY);
+    if (balleChercheuseImage !== undefined) {
+        balleChercheuseImage.setTarget(mousePosX, mousePosY);
     }
 }
 
