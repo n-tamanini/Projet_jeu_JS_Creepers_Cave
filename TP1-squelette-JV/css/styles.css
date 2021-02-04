@@ -10,6 +10,9 @@ h1 {
 #myCanvas {
     border: 1px solid black;
     background-color: lightgrey;
+    background: url('../assets/images/minecraft_cave.png') no-repeat ;
+    background-size: cover;
+    
 }
 
 #score {

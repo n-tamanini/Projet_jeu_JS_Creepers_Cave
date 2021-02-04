@@ -6,8 +6,7 @@ function traiteMouseDown(event) {
 
     switch (etatJeu) {
         case "MenuPrincipal":
-            assets.musique_menu_principal.stop();
-            assets.musique_jeu_en_cours.play();
+            changeMusique(assets.musique_jeu_en_cours);
             rendJoueurInvincibleTemporairement(dureeInvincibiliteTemporaireDebut);
             etatJeu = "JeuEnCours";
             break;

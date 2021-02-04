@@ -13,6 +13,7 @@ let score;
 let isPlayerInvincible;
 let dureeInvincibiliteTemporaireDebut = 1500;
 let dureeInvincibiliteTemporaireToucheParEnnemi = 2000;
+let musiqueCourante = null;
 
 let etatJeu = "MenuPrincipal";
 //let etatJeu = "EcranChangementNiveau";
@@ -31,53 +32,52 @@ function main() {
 
 }
 
-function startGame(assetsLoaded){
+function startGame(assetsLoaded) {
 
     assets = assetsLoaded;
 
 
-     // On récupère grace à la selector API un pointeur vers le canvas
-     canvas = document.querySelector("#myCanvas");
+    // On récupère grace à la selector API un pointeur vers le canvas
+    canvas = document.querySelector("#myCanvas");
 
-     // On ajoute des écouteurs sur le canvas
-     canvas.onmousedown = traiteMouseDown;
-     canvas.onmouseup = traiteMouseUp;
-     canvas.onmousemove = traiteMouseMove;
- 
-     // On peut détecter les touche que si il y a le focus sur le canvas
-     // Donc on détecte sur le document entier (plus simple)
-     document.onkeydown = traiteKeyDown;
-     document.onkeyup = traiteKeyUp;
- 
-     //canvas.addEventListener("mousedown", traiteMouseDown);
- 
- 
-     // pour dessiner, on a besoin de son "contexte graphique", un pbjet qui va 
-     // permettre de dessiner ou de changer les propriétés du canvas
-     ctx = canvas.getContext("2d");
- 
-     gradient_yellow = ctx.createLinearGradient(-monstre.radius, 0, monstre.radius, monstre.radius);
-     gradient_yellow.addColorStop(0, "orange");
-     gradient_yellow.addColorStop(0.5, "yellow");
-     gradient_yellow.addColorStop(1, "white");
- 
-     colors = [gradient_yellow, "rgb(0,0,0,0)"];
- 
-     console.log(monstre.donneTonNom());
- 
-     initialiserNouvellePartie();
- 
-     creerDesBalles(niveauCourant);
- 
-     requestAnimationFrame(animationLoop);
+    // On ajoute des écouteurs sur le canvas
+    canvas.onmousedown = traiteMouseDown;
+    canvas.onmouseup = traiteMouseUp;
+    canvas.onmousemove = traiteMouseMove;
+
+    // On peut détecter les touche que si il y a le focus sur le canvas
+    // Donc on détecte sur le document entier (plus simple)
+    document.onkeydown = traiteKeyDown;
+    document.onkeyup = traiteKeyUp;
+
+    //canvas.addEventListener("mousedown", traiteMouseDown);
+
+
+    // pour dessiner, on a besoin de son "contexte graphique", un pbjet qui va 
+    // permettre de dessiner ou de changer les propriétés du canvas
+    ctx = canvas.getContext("2d");
+
+    gradient_green = ctx.createLinearGradient(-monstre.radius, 0, monstre.radius, monstre.radius);
+    gradient_green.addColorStop(0, "darkgreen");
+    gradient_green.addColorStop(0.5, "green");
+    gradient_green.addColorStop(1, "white");
+
+    colors = [gradient_green, "rgb(0,0,0,0)"];
+
+    console.log(monstre.donneTonNom());
+
+    initialiserNouvellePartie();
+
+    creerDesBalles(niveauCourant);
+
+    requestAnimationFrame(animationLoop);
 }
 
 function initialiserNouvellePartie() {
     nbVies = 10;
     score = 0;
     niveauCourant = 1;
-    assets.musique_game_over.stop();
-    assets.musique_menu_principal.play();
+    changeMusique(assets.musique_menu_principal);
 }
 
 function creerDesBalles(niveauCourant) {
@@ -123,7 +123,7 @@ function creerDesBalles(niveauCourant) {
 
 function afficheInfoJeu() {
     ctx.save();
-    ctx.fillStyle = "Black";
+    ctx.fillStyle = "White";
     ctx.font = "30pt Blue";
     ctx.fillText("Niveau : " + niveauCourant, 1000, 40);
     ctx.fillText("Score : " + score, 480, 40);
@@ -160,11 +160,11 @@ function animationLoop() {
 function afficheMenuPrincipal() {
     ctx.save();
     ctx.translate(600, 400);
-    ctx.fillStyle = "Black";
-    ctx.font = "50pt Blue";
-    ctx.fillText("MENU PRINCIPAL", -300, -200);
+    ctx.fillStyle = "White";
+    ctx.font = "90pt Blue";
+    ctx.fillText("CREEPER'S CAVE", -500, -100);
     ctx.font = "30pt Blue";
-    ctx.fillText("Cliquez pour démarrer", -240, 50);
+    ctx.fillText("Cliquez pour démarrer", -240, 250);
     ctx.restore();
 }
 
@@ -190,36 +190,35 @@ function updateJeu() {
 
     if (nbVies <= 0) {
         etatJeu = "GameOver";
-        assets.musique_jeu_en_cours.stop();
-        assets.musique_game_over.play();
+        changeMusique(assets.musique_game_over);
     }
 }
 
 function afficheEcranChangementNiveau() {
     ctx.save();
     ctx.translate(600, 400);
-    ctx.fillStyle = "Black";
+    ctx.fillStyle = "White";
     ctx.font = "50pt Blue";
     ctx.fillText("Niveau " + niveauCourant + " terminé !", -300, -200);
     ctx.font = "25pt Blue";
     ctx.fillText("Score : " + score, -120, -50);
     ctx.fillText("Nombre de vies : " + nbVies, -180, 0);
     ctx.font = "30pt Blue";
-    ctx.fillText("Cliquez pour passer au niveau suivant", -380, 200);
+    ctx.fillText("Cliquez pour passer au niveau suivant", -380, 250);
     ctx.restore();
 }
 
 function afficheEcranGameOver() {
     ctx.save();
     ctx.translate(600, 400);
-    ctx.fillStyle = "Black";
+    ctx.fillStyle = "White";
     ctx.font = "50pt Blue";
     ctx.fillText("Partie perdue :( ", -250, -200);
     ctx.font = "25pt Blue";
     ctx.fillText("Score : " + score, -120, -50);
     ctx.fillText("Niveau atteint : " + niveauCourant, -160, 0);
     ctx.font = "30pt Blue";
-    ctx.fillText("Cliquez pour revenir au menu principal", -380, 200);
+    ctx.fillText("Cliquez pour revenir au menu principal", -380, 250);
     ctx.restore();
 
 }
@@ -253,25 +252,25 @@ function changeColor() {
     currentColor += 1;
 }
 
-function faireClignoterLeMonstre(){
-    var interv = setInterval(function(){
+function faireClignoterLeMonstre() {
+    var interv = setInterval(function () {
         changeColor();
-        if(!isPlayerInvincible) {
-              clearInterval(interv);
-              ctx.fillStyle = colors[0];
-              currentColor = 1;
-         }
-   } , 100);
+        if (!isPlayerInvincible) {
+            clearInterval(interv);
+            ctx.fillStyle = colors[0];
+            currentColor = 1;
+        }
+    }, 100);
 }
 
 
-function rendJoueurInvincibleTemporairement(temps){
-    setTimeout((rendJoueurVulnerable), temps);  
-    rendJoueurInvincible();  
+function rendJoueurInvincibleTemporairement(temps) {
+    setTimeout((rendJoueurVulnerable), temps);
+    rendJoueurInvincible();
 }
 
 
-function rendJoueurInvincible(){
+function rendJoueurInvincible() {
     isPlayerInvincible = true;
     faireClignoterLeMonstre();
 }
