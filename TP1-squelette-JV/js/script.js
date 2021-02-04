@@ -10,6 +10,7 @@ let niveauCourant;
 let nbVies;
 let score;
 let isPlayerInvincible;
+let dureeInvincibiliteTemporaire = 1500;
 
 let etatJeu = "MenuPrincipal";
 //let etatJeu = "EcranChangementNiveau";
@@ -49,12 +50,7 @@ function main() {
     gradient_yellow.addColorStop(0.5, "yellow");
     gradient_yellow.addColorStop(1, "white");
 
-    gradient_red = ctx.createLinearGradient(-monstre.radius, 0, monstre.radius, monstre.radius);
-    gradient_red.addColorStop(0, "darkred");
-    gradient_red.addColorStop(0.5, "red");
-    gradient_red.addColorStop(1, "white");
-
-    colors = [gradient_yellow, gradient_red];
+    colors = [gradient_yellow, "lightgrey"];
 
     console.log(monstre.donneTonNom());
 
@@ -64,17 +60,13 @@ function main() {
 
     requestAnimationFrame(animationLoop);
 
-    //setInterval(changeColor, 1000);
-
 }
 
-function initialiserNouvellePartie(){
-    isPlayerInvincible = true;
-    console.log("joueur invincible");
+function initialiserNouvellePartie() {
     nbVies = 10;
     score = 0;
     niveauCourant = 1;
-} 
+}
 
 function creerDesBalles(niveauCourant) {
     tableauDesBalles = [];
@@ -111,15 +103,10 @@ function creerDesBalles(niveauCourant) {
         Math.random() * canvas.height,
         40,
         "red",
-        1+(niveauCourant/4),
+        1 + (niveauCourant / 4),
     );
     tableauDesBalles.push(balleChercheuse);
 
-}
-
-function changeColor() {
-    ctx.fillStyle = colors[currentColor % 2];
-    currentColor += 1;
 }
 
 function afficheInfoJeu() {
@@ -247,19 +234,41 @@ function updateBalles() {
 
 }
 
-function rendJoueurVulnerable(){
+function changeColor() {
+    ctx.fillStyle = colors[currentColor % 2];
+    currentColor += 1;
+}
+
+function faireClignoterLeMonstre(){
+    var interv = setInterval(function(){
+        changeColor();
+        if(!isPlayerInvincible) {
+              clearInterval(interv);
+              ctx.fillStyle = colors[0];
+              currentColor = 1;
+         }
+   } , 300);
+}
+
+
+function rendJoueurInvincibleTemporairement(){
+    setTimeout((rendJoueurVulnerable), dureeInvincibiliteTemporaire);  
+    rendJoueurInvincible();  
+}
+
+
+function rendJoueurInvincible(){
+    isPlayerInvincible = true;
+    faireClignoterLeMonstre();
+}
+
+function rendJoueurVulnerable() {
     isPlayerInvincible = false;
     console.log("joueur vunlérable");
 }
 
-function rendJoueurVulnerableDans2Sec(){
-    setTimeout((rendJoueurVulnerable),2000);
-}
-
 function passeNiveauSuivant() {
-    isPlayerInvincible = true;
-    console.log("joueur invincible");
-    rendJoueurVulnerableDans2Sec();
+    rendJoueurInvincibleTemporairement();
     niveauCourant += 1;
     creerDesBalles(niveauCourant);
     etatJeu = "JeuEnCours";

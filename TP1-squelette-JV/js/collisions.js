@@ -58,6 +58,7 @@ function traiteCollisionJoueurAvecBalles(b) {
             tableauDesBalles.splice(index, 1);
             score += 10;
         } else if (b.couleur == "red" && !isPlayerInvincible) {
+            rendJoueurInvincibleTemporairement();
             let index = tableauDesBalles.indexOf(b);
             tableauDesBalles.splice(index, 1);
             if (b instanceof BalleChercheuse) {
