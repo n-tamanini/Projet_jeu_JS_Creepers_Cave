@@ -70,6 +70,7 @@ function main() {
 
 function initialiserNouvellePartie(){
     isPlayerInvincible = true;
+    console.log("joueur invincible");
     nbVies = 10;
     score = 0;
     niveauCourant = 1;
