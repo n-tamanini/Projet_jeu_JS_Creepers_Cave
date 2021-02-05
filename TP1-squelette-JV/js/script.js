@@ -164,7 +164,7 @@ function updateJeu() {
     updateBalles();
 
     traiteCollisionsJoueurAvecBords();
-    
+
     afficheInfoJeu();
 
     if (niveauFini()) {

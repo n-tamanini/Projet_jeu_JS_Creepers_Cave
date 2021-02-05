@@ -1,6 +1,6 @@
 function afficheMenuPrincipal() {
     ctx.save();
-    ctx.translate(canvas.width/2, canvas.height/2);
+    ctx.translate(canvas.width / 2, canvas.height / 2);
     ctx.fillStyle = "White";
     ctx.font = "90pt Blue";
     ctx.fillText("CREEPER'S CAVE", -500, -100);
@@ -14,15 +14,15 @@ function afficheInfoJeu() {
     ctx.translate(0, 40);
     ctx.fillStyle = "White";
     ctx.font = "30pt Blue";
-    ctx.fillText("Niveau : " + niveauCourant, canvas.width-230, 0);
-    ctx.fillText("Score : " + score, (canvas.width/2) -100, 0);
+    ctx.fillText("Niveau : " + niveauCourant, canvas.width - 230, 0);
+    ctx.fillText("Score : " + score, (canvas.width / 2) - 100, 0);
     ctx.fillText("Vies : " + nbVies, 40, 0);
     ctx.restore();
 }
 
 function afficheEcranChangementNiveau() {
     ctx.save();
-    ctx.translate(canvas.width/2, canvas.height/2);
+    ctx.translate(canvas.width / 2, canvas.height / 2);
     ctx.fillStyle = "White";
     ctx.font = "50pt Blue";
     ctx.fillText("Niveau " + niveauCourant + " terminé !", -300, -200);
@@ -36,7 +36,7 @@ function afficheEcranChangementNiveau() {
 
 function afficheEcranGameOver() {
     ctx.save();
-    ctx.translate(canvas.width/2, canvas.height/2);
+    ctx.translate(canvas.width / 2, canvas.height / 2);
     ctx.fillStyle = "White";
     ctx.font = "50pt Blue";
     ctx.fillText("Partie perdue :( ", -250, -200);

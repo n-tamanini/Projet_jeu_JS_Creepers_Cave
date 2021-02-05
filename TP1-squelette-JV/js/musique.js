@@ -1,5 +1,5 @@
-function changeMusique(m){
-    if(musiqueCourante){
+function changeMusique(m) {
+    if (musiqueCourante) {
         musiqueCourante.stop();
     }
     musiqueCourante = m;

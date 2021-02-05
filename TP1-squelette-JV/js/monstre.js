@@ -27,7 +27,7 @@ let monstre = {
         ctx.fill();
 
         ctx.beginPath();
-        
+
         ctx.fillStyle = "black";
         ctx.rect(-23, -20, 15, 15);
         ctx.rect(7, -20, 15, 15);

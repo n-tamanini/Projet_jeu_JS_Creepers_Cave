@@ -1,6 +1,6 @@
 /* Les assets, on pourra plus tard ajouter des sons et des musiques */
 const assetsToLoadURLs = {
-    
+
     glowstone: { url: "assets/images/glowstone.png" },
     squelette: { url: "assets/images/squelette.png" },
     enderman: { url: "assets/images/enderman.png" },

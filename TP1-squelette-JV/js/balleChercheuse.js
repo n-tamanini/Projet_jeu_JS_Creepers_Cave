@@ -30,7 +30,7 @@ class BalleChercheuse extends BalleAvecVitesseEtAngle {
         this.angle = Math.atan2(dy, dx);
 
         if (this.distanceToTarget() < 3) return;
-     
+
         super.move();
     }
 }

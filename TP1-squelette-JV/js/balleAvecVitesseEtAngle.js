@@ -11,22 +11,22 @@ class BalleAvecVitesseEtAngle extends Balle {
     draw(ctx) {
         // On dessine la balle avec un vecteur direction
         super.draw(ctx);
-/*
-        ctx.save();
-
-        // On dessine un trait dans la direction de la balle
+        /*
+                ctx.save();
         
-        ctx.translate(this.x, this.y);
-        ctx.rotate(this.angle);
-
-        ctx.beginPath();
-        ctx.moveTo(0, 0);
-        ctx.lineTo(100 + (this.vitesse * 5), 0);
-
-        ctx.lineWidth = 3;
-        ctx.stroke();
-
-        ctx.restore();*/
+                // On dessine un trait dans la direction de la balle
+                
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.angle);
+        
+                ctx.beginPath();
+                ctx.moveTo(0, 0);
+                ctx.lineTo(100 + (this.vitesse * 5), 0);
+        
+                ctx.lineWidth = 3;
+                ctx.stroke();
+        
+                ctx.restore();*/
     }
     move() {
         this.x += Math.cos(this.angle) * this.vitesse;

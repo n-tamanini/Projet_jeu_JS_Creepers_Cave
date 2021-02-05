@@ -83,7 +83,7 @@ window.addEventListener('resize', () => {
     setUpCanvas();
 
     // On redessine le monstre (règle un bug : quand on redimensionait sans ce code, le monstre devenait tout noir ...)
-    if(etatJeu == "JeuEnCours"){
+    if (etatJeu == "JeuEnCours") {
         ctx.fillStyle = gradient_green;
         monstre.draw(ctx);
     }
