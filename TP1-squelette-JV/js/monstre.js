@@ -17,7 +17,7 @@ let monstre = {
     draw: function (ctx) {
         // Bonne pratique : sauver le contexte courant avant de dessiner ou de modifier qqch dans le contexte
         ctx.save();
-        //ctx.fillStyle = gradient_yellow;
+        //ctx.fillStyle = gradient_green;
         ctx.translate(this.x, this.y);
 
         ctx.beginPath();

@@ -15,12 +15,21 @@ let dureeInvincibiliteTemporaireDebut = 1500;
 let dureeInvincibiliteTemporaireToucheParEnnemi = 2000;
 let musiqueCourante = null;
 
+let img1;
+
 let etatJeu = "MenuPrincipal";
 //let etatJeu = "EcranChangementNiveau";
 //let etatJeu = "GameOver";
 
 // Ici, on va stocker les objets graphiques du jeu, ennemis, etc.
 let tableauDesBalles = [];
+
+const setUpCanvas = () => {
+    // Feed the size back to the canvas.
+    canvas.width = canvas.clientWidth;
+    canvas.height = canvas.clientHeight;
+    console.log( canvas.clientWidth,canvas.clientHeight);
+};
 
 // Programme principal
 function main() {
@@ -33,10 +42,17 @@ function main() {
 function startGame(assetsLoaded) {
 
     assets = assetsLoaded;
-
+    //img1 = assets[0];
+    console.log(assets.glowstone);
 
     // On récupère grace à la selector API un pointeur vers le canvas
     canvas = document.querySelector("#myCanvas");
+
+    // pour dessiner, on a besoin de son "contexte graphique", un pbjet qui va 
+    // permettre de dessiner ou de changer les propriétés du canvas
+    ctx = canvas.getContext("2d");
+
+    setUpCanvas();
 
     // On ajoute des écouteurs sur le canvas
     canvas.onmousedown = traiteMouseDown;
@@ -49,11 +65,6 @@ function startGame(assetsLoaded) {
     document.onkeyup = traiteKeyUp;
 
     //canvas.addEventListener("mousedown", traiteMouseDown);
-
-
-    // pour dessiner, on a besoin de son "contexte graphique", un pbjet qui va 
-    // permettre de dessiner ou de changer les propriétés du canvas
-    ctx = canvas.getContext("2d");
 
     gradient_green = ctx.createLinearGradient(-monstre.radius, 0, monstre.radius, monstre.radius);
     gradient_green.addColorStop(0, "darkgreen");
@@ -120,16 +131,6 @@ function creerDesBalles(niveauCourant) {
 
 }
 
-function afficheInfoJeu() {
-    ctx.save();
-    ctx.fillStyle = "White";
-    ctx.font = "30pt Blue";
-    ctx.fillText("Niveau : " + niveauCourant, 1000, 40);
-    ctx.fillText("Score : " + score, 480, 40);
-    ctx.fillText("Vies : " + nbVies, 10, 40);
-    ctx.restore();
-}
-
 // Animation à 60 images/s
 function animationLoop() {
     // On efface le canvas
@@ -156,16 +157,6 @@ function animationLoop() {
     requestAnimationFrame(animationLoop);
 }
 
-function afficheMenuPrincipal() {
-    ctx.save();
-    ctx.translate(600, 400);
-    ctx.fillStyle = "White";
-    ctx.font = "90pt Blue";
-    ctx.fillText("CREEPER'S CAVE", -500, -100);
-    ctx.font = "30pt Blue";
-    ctx.fillText("Cliquez pour démarrer", -240, 250);
-    ctx.restore();
-}
 
 function updateJeu() {
 
@@ -191,35 +182,6 @@ function updateJeu() {
         etatJeu = "GameOver";
         changeMusique(assets.musique_game_over);
     }
-}
-
-function afficheEcranChangementNiveau() {
-    ctx.save();
-    ctx.translate(600, 400);
-    ctx.fillStyle = "White";
-    ctx.font = "50pt Blue";
-    ctx.fillText("Niveau " + niveauCourant + " terminé !", -300, -200);
-    ctx.font = "25pt Blue";
-    ctx.fillText("Score : " + score, -120, -50);
-    ctx.fillText("Nombre de vies : " + nbVies, -180, 0);
-    ctx.font = "30pt Blue";
-    ctx.fillText("Cliquez pour passer au niveau suivant", -380, 250);
-    ctx.restore();
-}
-
-function afficheEcranGameOver() {
-    ctx.save();
-    ctx.translate(600, 400);
-    ctx.fillStyle = "White";
-    ctx.font = "50pt Blue";
-    ctx.fillText("Partie perdue :( ", -250, -200);
-    ctx.font = "25pt Blue";
-    ctx.fillText("Score : " + score, -120, -50);
-    ctx.fillText("Niveau atteint : " + niveauCourant, -160, 0);
-    ctx.font = "30pt Blue";
-    ctx.fillText("Cliquez pour revenir au menu principal", -380, 250);
-    ctx.restore();
-
 }
 
 function niveauFini() {

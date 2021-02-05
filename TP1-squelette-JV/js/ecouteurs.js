@@ -71,3 +71,21 @@ function traiteKeyUp(event) {
             break;
     }
 }
+
+// Pour avoir un cavas responsive
+
+// Inspiré de : https://isaiahnixon.com/dynamic-canvas/
+
+window.addEventListener('resize', () => {
+    // Clear the canvas.
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    setUpCanvas();
+
+    // On redessine le monstre (règle un bug : quand on redimensionait sans ce code, le monstre devenait tout noir ...)
+    if(etatJeu == "JeuEnCours"){
+        ctx.fillStyle = gradient_green;
+        monstre.draw(ctx);
+    }
+
+});
