@@ -18,8 +18,6 @@ let musiqueCourante = null;
 let img1;
 
 let etatJeu = "MenuPrincipal";
-//let etatJeu = "EcranChangementNiveau";
-//let etatJeu = "GameOver";
 
 // Ici, on va stocker les objets graphiques du jeu, ennemis, etc.
 let tableauDesBalles = [];
@@ -28,12 +26,11 @@ const setUpCanvas = () => {
     // Feed the size back to the canvas.
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
-    console.log( canvas.clientWidth,canvas.clientHeight);
 };
 
 // Programme principal
 function main() {
-    console.log("page chargée ! DOM ready ! Toutes les ressources de la page sont utilisables (vidéos, images, polices ...)");
+    console.log("Page chargée ! DOM ready ! Toutes les ressources de la page sont utilisables (vidéos, images, polices ...)");
 
     loadAssets(startGame);
 
@@ -42,8 +39,6 @@ function main() {
 function startGame(assetsLoaded) {
 
     assets = assetsLoaded;
-    //img1 = assets[0];
-    console.log(assets.glowstone);
 
     // On récupère grace à la selector API un pointeur vers le canvas
     canvas = document.querySelector("#myCanvas");
@@ -96,7 +91,7 @@ function creerDesBalles(niveauCourant) {
         let x = Math.random() * canvas.width;
         let y = Math.random() * canvas.height;
         let r = (Math.random() + 1) * 20;
-        let imgUrl = "assets/images/squelette.png";
+        let imgUrl = assets.squelette.src;
         let vx = -5 + Math.random() * 10;
         let vy = -5 + Math.random() * 10;
 
@@ -109,11 +104,11 @@ function creerDesBalles(niveauCourant) {
         let x = Math.random() * canvas.width;
         let y = Math.random() * canvas.height;
         let rayon = 30;
-        let imgUrl = "assets/images/glowstone.png";
+        let img = assets.glowstone.src;
         let vx = -5 + Math.random() * 10;
         let vy = -5 + Math.random() * 10;
 
-        let b = new BalleImage(x, y, rayon, imgUrl, vx, vy, "ami");
+        let b = new BalleImage(x, y, rayon, img, vx, vy, "ami");
         tableauDesBalles.push(b);
     }
 
@@ -122,7 +117,7 @@ function creerDesBalles(niveauCourant) {
         let x = Math.random() * canvas.width;
         let y = Math.random() * canvas.height;
         let rayon = 50;
-        let imgUrl = "assets/images/enderman.png";
+        let imgUrl = assets.enderman.src;
         let v = 1 + (niveauCourant / 8);
 
         let b = new BalleChercheuseImage(x, y, rayon, imgUrl, v);
@@ -169,10 +164,8 @@ function updateJeu() {
     updateBalles();
 
     traiteCollisionsJoueurAvecBords();
+    
     afficheInfoJeu();
-
-    // On demande au navigateur de rappeler la fonction animationloop dans 1/60 seconde
-    //requestAnimationFrame(animationLoop);
 
     if (niveauFini()) {
         etatJeu = "EcranChangementNiveau";
@@ -206,38 +199,6 @@ function updateBalles() {
         b.move();
     });
 
-}
-
-function changeColor() {
-    ctx.fillStyle = colors[currentColor % 2];
-    currentColor += 1;
-}
-
-function faireClignoterLeMonstre() {
-    var interv = setInterval(function () {
-        changeColor();
-        if (!isPlayerInvincible) {
-            clearInterval(interv);
-            ctx.fillStyle = colors[0];
-            currentColor = 1;
-        }
-    }, 100);
-}
-
-
-function rendJoueurInvincibleTemporairement(temps) {
-    setTimeout((rendJoueurVulnerable), temps);
-    rendJoueurInvincible();
-}
-
-
-function rendJoueurInvincible() {
-    isPlayerInvincible = true;
-    faireClignoterLeMonstre();
-}
-
-function rendJoueurVulnerable() {
-    isPlayerInvincible = false;
 }
 
 function passeNiveauSuivant() {
