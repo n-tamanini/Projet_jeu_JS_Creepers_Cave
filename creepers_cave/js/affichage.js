@@ -32,7 +32,7 @@ function afficheEcranChangementNiveau() {
     ctx.fillText("Score : " + score, -120, -50);
     ctx.fillText("Nombre de vies : " + nbVies, -180, 0);
     ctx.font = "30pt Blue";
-    ctx.fillText("Cliquez pour passer au niveau suivant", -380, 300);
+    ctx.fillText("Cliquez pour passer au niveau suivant", -380, (canvas.height/2)-50);
     ctx.restore();
 }
 
@@ -46,6 +46,6 @@ function afficheEcranGameOver() {
     ctx.fillText("Score : " + score, -120, -50);
     ctx.fillText("Niveau atteint : " + niveauCourant, -160, 0);
     ctx.font = "30pt Blue";
-    ctx.fillText("Cliquez pour revenir au menu principal", -380, 300);
+    ctx.fillText("Cliquez pour revenir au menu principal", -380, (canvas.height/2)-50);
     ctx.restore();
 }
