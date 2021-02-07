@@ -5,7 +5,9 @@ function afficheMenuPrincipal() {
     ctx.font = "90pt Blue";
     ctx.fillText("CREEPER'S CAVE", -500, -100);
     ctx.font = "30pt Blue";
-    ctx.fillText("Cliquez pour démarrer", -215, 250);
+    ctx.fillText("Cliquez pour démarrer", -215, (canvas.height/6));
+    //ctx.font = "20pt Blue";
+    //ctx.fillText("Appuyez sur la touche R pour voir les règles", -270, (canvas.height/2.1));
     ctx.restore();
 }
 
