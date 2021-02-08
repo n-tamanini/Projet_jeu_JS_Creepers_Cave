@@ -1,6 +1,6 @@
 # Projet - Développement d'un jeu vidéo en JS
 
-Auteur : Nicolas TAMANINI
+## Auteur : Nicolas TAMANINI
 
 Jeu vidéo Creeper's Cave développé dans le cadre du cours JavaScript de M. Buffa (MBDS ESTIA)
 
