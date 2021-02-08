@@ -73,9 +73,8 @@ function traiteKeyUp(event) {
 }
 
 // Pour avoir un cavas responsive
-
+// Cette fonction est appelée dès que l'utilisateur redimensionne la fenêtre 
 // Inspiré de : https://isaiahnixon.com/dynamic-canvas/
-
 window.addEventListener('resize', () => {
     // Clear the canvas.
     ctx.clearRect(0, 0, canvas.width, canvas.height);

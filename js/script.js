@@ -3,27 +3,26 @@ window.onload = main;
 let canvas;
 let ctx;
 let assets;
+
 let gradient_green;
-let gradient_red;
 let colors = [];
 let currentColor = 0;
+
 let niveauCourant;
 let nbVies;
 let score;
 let isPlayerInvincible;
 let dureeInvincibiliteTemporaireDebut = 1500;
 let dureeInvincibiliteTemporaireToucheParEnnemi = 2000;
+
 let musiqueCourante = null;
-
-let img1;
-
 let etatJeu = "MenuPrincipal";
 
 // Ici, on va stocker les objets graphiques du jeu, ennemis, etc.
 let tableauDesBalles = [];
 
 const setUpCanvas = () => {
-    // Feed the size back to the canvas.
+    // Pour avoir un canvas responsive
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
 };
@@ -43,7 +42,7 @@ function startGame(assetsLoaded) {
     // On récupère grace à la selector API un pointeur vers le canvas
     canvas = document.querySelector("#myCanvas");
 
-    // pour dessiner, on a besoin de son "contexte graphique", un pbjet qui va 
+    // pour dessiner, on a besoin de son "contexte graphique", un objet qui va 
     // permettre de dessiner ou de changer les propriétés du canvas
     ctx = canvas.getContext("2d");
 
@@ -58,8 +57,6 @@ function startGame(assetsLoaded) {
     // Donc on détecte sur le document entier (plus simple)
     document.onkeydown = traiteKeyDown;
     document.onkeyup = traiteKeyUp;
-
-    //canvas.addEventListener("mousedown", traiteMouseDown);
 
     gradient_green = ctx.createLinearGradient(-monstre.radius, 0, monstre.radius, monstre.radius);
     gradient_green.addColorStop(0, "darkgreen");
@@ -87,6 +84,7 @@ function creerDesBalles(niveauCourant) {
     tableauDesBalles = [];
 
     // Balles ennemies
+    // Tous les deux niveaux, on rajoute une balle ennemie
     for (let i = 0; i < niveauCourant / 2; i++) {
         let x = Math.random() * canvas.width;
         let y = Math.random() * canvas.height;
@@ -100,6 +98,7 @@ function creerDesBalles(niveauCourant) {
     }
 
     // Balles amies
+    // Tous les niveaux, on rajoute deux balles amies
     for (let i = 0; i < niveauCourant * 2; i++) {
         let x = Math.random() * canvas.width;
         let y = Math.random() * canvas.height;
@@ -113,6 +112,7 @@ function creerDesBalles(niveauCourant) {
     }
 
     // Balles à tête chercheuse
+    // Tous les 10 niveaux, on rajoute une balle à tête chercheuse
     for (let i = 0; i < niveauCourant / 10; i++) {
         let x = Math.random() * canvas.width;
         let y = Math.random() * canvas.height;
