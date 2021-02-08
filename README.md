@@ -19,4 +19,4 @@ Pour ce projet, l'accent a été mis sur :
     - Quand le monstre est touché par un ennemi, il perd une vie et est invincible temporairement (il clignote aussi dans ce cas).
     
    
-# Démo du jeu ici : https://n-tamanini.github.io/Projet_jeu_JS_Creepers_Cave/
+## Démo du jeu ici : https://n-tamanini.github.io/Projet_jeu_JS_Creepers_Cave/
